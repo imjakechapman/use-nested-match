@@ -32,6 +32,7 @@
     "trailingComma": "es5"
   },
   "name": "@imjakechapman/use-nested-match",
+  "private": false,
   "author": {
     "name": "Jake Chapman",
     "email": "jake@imjakechapman.com",
