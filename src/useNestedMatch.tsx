@@ -1,6 +1,14 @@
 import { useState, useEffect } from 'react';
 
-export const useNestedMatch = (test: string, type = '', path: string = '') => {
+type NestedMatchOpts = {
+  type?: string;
+  path?: string;
+};
+
+export const useNestedMatch = (
+  test: string,
+  { type = '', path = '' }: NestedMatchOpts = {}
+) => {
   const [match, setMatch] = useState(false);
 
   useEffect(() => {

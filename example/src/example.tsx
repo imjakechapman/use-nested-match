@@ -40,8 +40,8 @@ function Example() {
 
 const DashboardContainer = () => {
   const { pathname } = useLocation();
-  const galleriesLinkActive = useNestedMatch("galleries", "startsWith", pathname);
-  const accountLinkActive = useNestedMatch("account", "startsWith", pathname);
+  const galleriesLinkActive = useNestedMatch("galleries", { type: "startsWith", path: pathname });
+  const accountLinkActive = useNestedMatch("account",  { type: "startsWith", path: pathname });
 
   return (
     <div className="w-full">

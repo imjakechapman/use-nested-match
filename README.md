@@ -7,7 +7,7 @@ Example: https://codesandbox.io/s/react-router-v6-utility-function-usenestedmatc
 
 #### How it works
 
-Under the hook, the hook uses `react-router-dom`'s `useLocation` hook and matches whatever you pass into it with a few options for `type` parameter which defaults to `""`.
+`useNestedMatch(test: string, opts: { type: string; path: string })`
 
 There are 2 `type` options available
 
@@ -15,6 +15,8 @@ There are 2 `type` options available
 2. "endsWith"
 
 They do exactly what they sound like they do. `startsWith` checks if the path starts with the test string and `endsWith` checks if the path name ends with the test string. If you don't pass a type param it will match against the entire path.
+
+provide a path to check against, default is `''`. For now I just pass `pathname` you can retrieve from react-router-dom's `useLocation` hook.
 
 #### Usage
 
@@ -37,12 +39,26 @@ We have some some nested routers and a top level `NavLink` we want to stay activ
 location.pathname `'/account/921808/somenestedroute/edit'`
 
 ```
+import { useLocation } from 'react-router-dom'
 import { useNestedMatch } from '@imjakechapman/use-nested-match'
 
 const App = () => {
-  const accountLinkActive = useNestedMatch('account', 'startsWith') // true
+  const { pathname } = useLocation()
+
+  // returns true
+  const accountLinkActive = useNestedMatch('account', {
+    type: 'startsWith',
+    path: pathname
+  })
+
+  // returns false
   const settingsLinkActive = useNestedMatch('settings') // false
-  const editLinkActive = useNestedMatch('edit', 'endsWith') // true
+
+  // returns true
+  const editLinkActive = useNestedMatch('edit', {
+    type: 'endsWith',
+    path: pathname
+  })
 
   return (
     <NavLink className={
